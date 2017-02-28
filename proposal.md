@@ -8,8 +8,6 @@ It is inspired by the game Scramble with Friends (also called Word Streak).
 
 ### MVP list  
 
-With this Conway's Game of Life simulator, users will be able to:
-
 - [ ] Start and reset buttons will randomize the letter board
 - [ ] Users can create words via mouse interaction with board
 - [ ] Word validation (with a dictionary or word list of sorts)
