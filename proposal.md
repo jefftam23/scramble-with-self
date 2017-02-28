@@ -22,7 +22,7 @@ With this Conway's Game of Life simulator, users will be able to:
 This app will consist of a single screen with game board, game controls, and nav links to the Github, my LinkedIn,
 and the About modal.  Game controls will include Start, Stop, and Reset buttons as well as a slider to control the speed.  On the left, three clickable shapes will be used to toggle between the types of grids available.  On the right, there will be three (or more) clickable gradient-filled rectangles used to toggle between color schemes (see Bonus Features).  Additionally, a drop-down will be added to the Controls to toggle between different rule sets (again, see Bonus Features).
 
-![wireframes](https://github.com/appacademy/ny-portfolio-curriculum/blob/master/javascript-project/js-proposal-wireframe.jpg)
+![wireframes](https://github.com/jefftam23/scramble-with-self/blob/master/wireframe.jpg)
 
 ### Architecture and Technologies
 
