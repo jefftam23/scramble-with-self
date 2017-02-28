@@ -17,9 +17,6 @@ It is inspired by the game Scramble with Friends (also called Word Streak).
 
 ### Wireframes
 
-This app will consist of a single screen with game board, game controls, and nav links to the Github, my LinkedIn,
-and the About modal.  Game controls will include Start, Stop, and Reset buttons as well as a slider to control the speed.  On the left, three clickable shapes will be used to toggle between the types of grids available.  On the right, there will be three (or more) clickable gradient-filled rectangles used to toggle between color schemes (see Bonus Features).  Additionally, a drop-down will be added to the Controls to toggle between different rule sets (again, see Bonus Features).
-
 ![wireframes](https://github.com/jefftam23/scramble-with-self/blob/master/wireframe.jpg)
 
 ### Architecture and Technologies
@@ -31,7 +28,7 @@ I will use jQuery to obtain mouse coordinates, and update the DOM accordingly to
 
 ### Implementation Timeline
 
-**Day 1**: Setup all necessary Node modules, including getting webpack up and running and a word-list library installed.  Create `webpack.config.js` as well as `package.json`.  Write a basic entry file and the bare bones of all 3 scripts outlined above. Finish user-board interaction.  Goals for the day:
+**Day 1**: Setup all necessary Node modules, including getting webpack up and running and a word-list library installed.  Create `webpack.config.js` as well as `package.json`.  Goals for the day:
 
 - Create a `board.js` file and implement a `reset()` function that randomizes the board
 - Handle user mouse input and `console.log` each time the user submits a word (by releasing mouse).
