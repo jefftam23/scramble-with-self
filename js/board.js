@@ -5,9 +5,15 @@ class Board {
     this.setup();
   }
 
+  randomLetter() {
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return alphabet.charAt(Math.floor(Math.random() * 26));
+  }
+
   resetBoard() {
-    let randomLetter = "J";
-    $("#board span").html(randomLetter);
+    $("#board span").each((idx, span) => {
+      $(span).html(this.randomLetter());
+    });
   }
 
   setup() {
