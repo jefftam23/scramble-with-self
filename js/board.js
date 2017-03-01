@@ -10,7 +10,7 @@ class Board {
     return alphabet.charAt(Math.floor(Math.random() * 26));
   }
 
-  resetBoard() {
+  randomizeBoard() {
     $("#board span").each((idx, span) => {
       $(span).html(this.randomLetter());
     });
@@ -30,7 +30,7 @@ class Board {
     }
 
     this.$el.append($ul);
-    this.resetBoard();
+    this.randomizeBoard();
   }
 }
 
