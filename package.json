@@ -1,0 +1,27 @@
+{
+  "name": "scramble-with-self",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node_modules/.bin/webpack-dev-server --progress --colors",
+    "webpack": "node_modules/.bin/webpack",
+    "watch": "node_modules/.bin/webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefftam23/scramble-with-self.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefftam23/scramble-with-self/issues"
+  },
+  "homepage": "https://github.com/jefftam23/scramble-with-self#readme",
+  "dependencies": {
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}
