@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node_modules/.bin/webpack-dev-server --progress --colors",
+    "server": "node_modules/.bin/webpack-dev-server --progress --colors --hot",
     "webpack": "node_modules/.bin/webpack",
     "watch": "node_modules/.bin/webpack --watch"
   },
