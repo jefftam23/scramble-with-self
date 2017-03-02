@@ -23,38 +23,3 @@ ul {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
-
-#board > ul {
-  border: 1px solid black;
-  margin: 0 auto;
-  width: 328px;
-  height: 328px;
-}
-
-#board li {
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 60px;
-  height: 60px;
-  margin: 10px;
-}
-
-#board li:hover {
-  background: lightgray;
-}
-
-#board li.selected {
-  background: red;
-}
-
-#board span {
-  display: block;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 60px; /* same height as li */
-}
-
-#board span:hover {
-  cursor: pointer;
-}
