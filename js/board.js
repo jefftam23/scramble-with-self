@@ -1,9 +1,10 @@
+const isEqual = require("lodash.isequal");
+
 class Board {
   constructor($el) {
     this.$el = $el;
     this.userSelecting = false;
-    this.posSelections = [];
-    this.letterSelections = "";
+    this.resetSelections();
 
     $("body")
       .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
@@ -28,7 +29,7 @@ class Board {
     if (this.userSelecting) {
       this.userSelecting = false;
       // 'submit' this.letterSelections
-      console.log(this.letterSelections);
+      console.log(`SUBMIT: ${this.letterSelections}`);
       this.resetSelections();
     }
   }
@@ -36,23 +37,42 @@ class Board {
   handleTileMousedown(e) {
     e.preventDefault();
     this.userSelecting = true;
-    this.posSelections.push($(e.currentTarget).data().pos);
-    this.letterSelections += e.currentTarget.children[0].innerHTML;
+    this.updateSelections($(e.currentTarget));
+
+    console.log(this.letterSelections);
   }
 
   handleTileMouseenter(e) {
     e.preventDefault();
     // if:
-    //  1) this.userSelecting === true
+    //  1) this.userSelecting === true AND
     //  2) not previously selected AND
-    //  3) adjacent to previous selection AND
+    //  3) adjacent to previous selection
     // then:
     //  push tile pos onto this.posSelections
+    const $tile = $(e.currentTarget);
 
-    if (this.userSelecting) {
-      this.posSelections.push($(e.currentTarget).data().pos);
-      this.letterSelections += e.currentTarget.children[0].innerHTML;
+    if (this.userSelecting && !this.previouslySelected($tile)) {
+      this.updateSelections($tile);
+
+      console.log(this.letterSelections);
     }
+   }
+
+  updateSelections($tile) {
+    this.posSelections.push($tile.data().pos);
+    this.letterSelections += $tile.children()[0].innerHTML;
+  }
+
+  previouslySelected($tile) {
+    for (let i = 0; i < this.posSelections.length; i++) {
+      let prevPos = this.posSelections[i];
+      if (isEqual($tile.data().pos, prevPos)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   randomLetter() {
