@@ -1,8 +1,9 @@
 const isEqual = require("lodash.isequal");
 
 class Board {
-  constructor($el) {
+  constructor($el, currSelection) {
     this.$el = $el;
+    this.currSelection = currSelection;
     this.userSelecting = false;
     this.resetSelections();
 
@@ -90,8 +91,7 @@ class Board {
     this.posSelections.push($tile.data().pos);
     this.letterSelections += $tile.children()[0].innerHTML;
     $tile.addClass("selected");
-
-    console.log(this.letterSelections);
+    this.currSelection.receiveWord(this.letterSelections);
   }
 
   previouslySelected($tile) {
@@ -120,6 +120,7 @@ class Board {
     this.posSelections = [];
     this.letterSelections = "";
     $("#board li").removeClass("selected");
+    this.currSelection.receiveWord(this.letterSelections);
   }
 
   setup() {
