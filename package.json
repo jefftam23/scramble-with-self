@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node_modules/.bin/webpack-dev-server --progress --colors --hot",
+    "start": "node_modules/.bin/webpack-dev-server --progress --colors --hot",
     "webpack": "node_modules/.bin/webpack",
     "watch": "node_modules/.bin/webpack --watch"
   },
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jefftam23/scramble-with-self#readme",
   "dependencies": {
+    "check-word": "^1.1.0",
     "lodash.isequal": "^4.5.0",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
