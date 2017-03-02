@@ -1,5 +1,6 @@
 const Board = require("./board.js");
 const CurrentSelection = require("./currentSelection.js");
+const LetterDistribution = require("./letterDistribution.js");
 
 $( () => {
   $.ajax({
@@ -14,7 +15,9 @@ $( () => {
     const $currentSelectionEl = $("#current-selection");
     const currSelection = new CurrentSelection($currentSelectionEl);
 
+    const letterDistribution = new LetterDistribution();
+
     const $boardEl = $("#board");
-    new Board($boardEl, currSelection, dict);
+    new Board($boardEl, currSelection, dict, letterDistribution);
   });
 });

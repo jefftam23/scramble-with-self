@@ -1,12 +1,14 @@
 const isEqual = require("lodash.isequal");
 
 class Board {
-  constructor($el, currSelection, dict) {
+  constructor($el, currSelection, dict, letterDist) {
     this.$el = $el;
     this.currSelection = currSelection;
     this.dict = dict;
     this.userSelecting = false;
     this.resetSelections();
+    
+    this.randomLetter = letterDist.randomLetter.bind(letterDist);
 
     $("body")
       .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
@@ -115,11 +117,6 @@ class Board {
     }
 
     return false;
-  }
-
-  randomLetter() {
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    return alphabet.charAt(Math.floor(Math.random() * 26));
   }
 
   randomizeBoard() {
