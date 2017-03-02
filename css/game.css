@@ -40,6 +40,14 @@ ul {
   margin: 10px;
 }
 
+#board li:hover {
+  background: lightgray;
+}
+
+#board li.selected {
+  background: red;
+}
+
 #board span {
   display: block;
   text-align: center;

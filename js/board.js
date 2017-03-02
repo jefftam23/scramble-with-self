@@ -89,6 +89,7 @@ class Board {
   updateSelections($tile) {
     this.posSelections.push($tile.data().pos);
     this.letterSelections += $tile.children()[0].innerHTML;
+    $tile.addClass("selected");
 
     console.log(this.letterSelections);
   }
@@ -118,6 +119,7 @@ class Board {
   resetSelections() {
     this.posSelections = [];
     this.letterSelections = "";
+    $("#board li").removeClass("selected");
   }
 
   setup() {
