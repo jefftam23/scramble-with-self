@@ -142,6 +142,10 @@ class LetterDistribution {
     return this.letters[randIdx];
   }
 
+  value(letter) {
+    return LETTER_DATA[letter].val;
+  }
+
   _populateLetters() {
     Object.keys(LETTER_DATA).forEach(letter => {
       for (let i = 0; i < LETTER_DATA[letter].freq; i++) {
