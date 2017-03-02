@@ -38,30 +38,59 @@ class Board {
     e.preventDefault();
     this.userSelecting = true;
     this.updateSelections($(e.currentTarget));
-
-    console.log(this.letterSelections);
   }
 
   handleTileMouseenter(e) {
     e.preventDefault();
-    // if:
-    //  1) this.userSelecting === true AND
-    //  2) not previously selected AND
-    //  3) adjacent to previous selection
-    // then:
-    //  push tile pos onto this.posSelections
+
     const $tile = $(e.currentTarget);
-
-    if (this.userSelecting && !this.previouslySelected($tile)) {
+    if (this.isValidSelection($tile)) {
       this.updateSelections($tile);
-
-      console.log(this.letterSelections);
     }
-   }
+  }
+
+  isValidSelection($tile) {
+    const prevPos = this.posSelections[this.posSelections.length - 1];
+
+    return this.userSelecting &&
+      !this.previouslySelected($tile) &&
+      this.isAdjacent($tile.data().pos, prevPos);
+  }
+
+  isAdjacent(pos1, pos2) {
+    const adjacentPositions1 = this.adjacentPositions(pos1);
+    for (let i = 0; i < adjacentPositions1.length; i++) {
+      if (isEqual(adjacentPositions1[i], pos2)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  adjacentPositions(pos) {
+    // includes invalid (off the board) positions, for now
+    const adjacentDeltas = [
+      [-1, -1],
+      [-1,  0],
+      [-1,  1],
+      [ 0,  1],
+      [ 0, -1],
+      [ 1, -1],
+      [ 1,  0],
+      [ 1,  1]
+    ];
+
+     return adjacentDeltas.map(delta => {
+      return [pos[0] + delta[0], pos[1] + delta[1]];
+    });
+  }
 
   updateSelections($tile) {
     this.posSelections.push($tile.data().pos);
     this.letterSelections += $tile.children()[0].innerHTML;
+
+    console.log(this.letterSelections);
   }
 
   previouslySelected($tile) {
