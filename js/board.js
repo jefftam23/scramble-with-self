@@ -1,9 +1,10 @@
 const isEqual = require("lodash.isequal");
 
 class Board {
-  constructor($el, currSelection) {
+  constructor($el, currSelection, dict) {
     this.$el = $el;
     this.currSelection = currSelection;
+    this.dict = dict;
     this.userSelecting = false;
     this.resetSelections();
 
@@ -30,9 +31,20 @@ class Board {
     if (this.userSelecting) {
       this.userSelecting = false;
       // 'submit' this.letterSelections
+      debugger;
+
       console.log(`SUBMIT: ${this.letterSelections}`);
+      if (this.isValidWord(this.letterSelections)) {
+        console.log("VALID");
+      } else {
+        console.log("NOT VALID");
+      }
       this.resetSelections();
     }
+  }
+
+  isValidWord(word) {
+    return !!this.dict[word.toLowerCase()];
   }
 
   handleTileMousedown(e) {
