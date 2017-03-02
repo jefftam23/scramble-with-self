@@ -11,6 +11,9 @@
   border-radius: 10px;
   width: 60px;
   height: 60px;
+  line-height: 60px;
+  text-align: center;
+  vertical-align: middle;
   margin: 10px;
 }
 
@@ -22,13 +25,6 @@
   background: red;
 }
 
-#board span {
-  display: block;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 60px; /* same height as li */
-}
-
-#board span:hover {
+#board li:hover {
   cursor: pointer;
 }

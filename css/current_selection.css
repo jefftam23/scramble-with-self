@@ -1,0 +1,10 @@
+#current-selection {
+  display: block;
+  width: 200px;
+  height: 25px;
+  line-height: 25px;
+  border: 1px solid black;
+  margin: 10px auto;
+  text-align: center;
+  vertical-align: middle;
+}
