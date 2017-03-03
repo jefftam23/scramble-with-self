@@ -9,10 +9,11 @@ class Game {
       url: "dict.txt"
     }).then( txt => {
       this.createDictionary(txt);
-      this.submittedWords = [];
+      this.$scoreVal = $("#score span");
+      this.reset();
 
       const currSelection = new CurrentSelection($("#current-selection"));
-      const letterDistribution = new LetterDistribution();
+      this.letterDistribution = new LetterDistribution();
 
       new Board(
         $("#board"),
@@ -25,9 +26,15 @@ class Game {
     });
   }
 
+  addToScore(score) {
+    this.score += score;
+    this.$scoreVal.html(this.score);
+  }
+
   processWord(word) {
     this.submittedWords.push(word);
-    // score the word and add that score to score
+    const score = this.letterDistribution.wordScore(word);
+    this.addToScore(score);
   }
 
   createDictionary(txt) {
@@ -40,6 +47,12 @@ class Game {
   alreadySubmitted(word) {
     return this.submittedWords.includes(word);
   }
-}
+
+  reset(){
+    this.submittedWords = [];
+    this.score = 0;
+    this.$scoreVal.html(this.score);
+  }
+ }
 
 module.exports = Game;
