@@ -1,14 +1,24 @@
 const isEqual = require("lodash.isequal");
+const LetterDistribution = require("./letterDistribution.js");
 
 class Board {
-  constructor($el, currSelection, dict, letterDist) {
+  constructor(
+    $el,
+    currSelection,
+    dict,
+    submitWordCallback,
+    alreadySubmittedCallback
+  )
+  {
     this.$el = $el;
     this.currSelection = currSelection;
     this.dict = dict;
+    this.letterDist = new LetterDistribution;
+    this.submitWordCallback = submitWordCallback;
+    this.alreadySubmittedCallback = alreadySubmittedCallback;
+
     this.userSelecting = false;
     this.resetSelections();
-    
-    this.randomLetter = letterDist.randomLetter.bind(letterDist);
 
     $("body")
       .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
@@ -33,14 +43,17 @@ class Board {
     if (this.userSelecting) {
       this.userSelecting = false;
       // 'submit' this.letterSelections
-      debugger;
+      const word = this.letterSelections;
 
-      console.log(`SUBMIT: ${this.letterSelections}`);
-      if (this.isValidWord(this.letterSelections)) {
-        console.log("VALID");
-      } else {
+      if (!this.isValidWord(word)) {
         console.log("NOT VALID");
+      } else if (this.alreadySubmittedCallback(word)) {
+        console.log("Already submitted!");
+      } else { // valid and not previously submitted
+        this.submitWordCallback(word);
+        console.log("VALID");
       }
+
       this.resetSelections();
     }
   }
@@ -121,7 +134,7 @@ class Board {
 
   randomizeBoard() {
     $("#board span").each((idx, span) => {
-      $(span).html(this.randomLetter());
+      $(span).html(this.letterDist.randomLetter());
     });
   }
 

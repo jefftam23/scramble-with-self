@@ -146,6 +146,14 @@ class LetterDistribution {
     return LETTER_DATA[letter].val;
   }
 
+  wordScore(word) {
+    let score = 0;
+    word.split("").forEach(letter => {
+      score += this.value(letter);
+    });
+    return score;
+  }
+
   _populateLetters() {
     Object.keys(LETTER_DATA).forEach(letter => {
       for (let i = 0; i < LETTER_DATA[letter].freq; i++) {
