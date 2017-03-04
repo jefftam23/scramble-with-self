@@ -21,7 +21,8 @@
 }
 
 #board {
-
+  font-size: 35px;
+  font-weight: bold;
 }
 
 #submitted-words {
@@ -34,13 +35,13 @@
 
 #board > ul {
   border: 1px solid black;
-  width: 328px;
-  height: 328px;
+  width: 320px;
+  height: 320px;
 }
 
 #board li {
+  box-sizing: border-box;
   display: inline-block;
-  border: 1px solid black;
   border-radius: 10px;
   width: 60px;
   height: 60px;
@@ -48,21 +49,41 @@
   text-align: center;
   vertical-align: middle;
   margin: 10px;
+
+  position: relative;
+	background-image: linear-gradient(lightgray, white);
+  box-shadow: 0px 1px 4px -2px #333;
+  text-shadow: 0px -1px #333;
 }
 
-#board li:hover {
-  background: lightgray;
+#board li:after{
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: 50%;
+	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+  border-radius: 10px 10px 0 0;
 }
 
+/*#board li:hover,*/
 #board li.selected {
-  background: red;
+  background: linear-gradient(#ffa100, #fff200);
+  color: #a55500;
+}
+
+#board li.invalid {
+  color: #c40000;
+  /*font-style: italic;*/
 }
 
 #board li.valid {
-  font-weight: bold;
-  font-size: 20px;
-  background: #34ff2b;
-  /*color: green;*/
+  color: green;
+}
+
+#board li.already-submitted {
+  color: orange;
 }
 
 #board li:hover {

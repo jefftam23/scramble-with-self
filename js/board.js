@@ -44,13 +44,31 @@ class Board {
       this.userSelecting = false;
       // 'submit' this.letterSelections
       const word = this.letterSelections;
+      const $selectedTiles = $("#board li.selected");
 
       if (!this.isValidWord(word)) {
+        $selectedTiles.addClass("invalid");
+        setTimeout(() => {
+          $selectedTiles.removeClass("invalid");
+        },300);
+
         console.log("NOT VALID");
       } else if (this.alreadySubmittedCallback(word)) {
+
+        $selectedTiles.addClass("already-submitted");
+        setTimeout(() => {
+          $selectedTiles.removeClass("already-submitted");
+        },300);
+
         console.log("Already submitted!");
       } else { // valid and not previously submitted
         this.submitWordCallback(word);
+
+        $selectedTiles.addClass("valid");
+        setTimeout(() => {
+          $selectedTiles.removeClass("valid");
+        },300);
+
         console.log("VALID");
       }
 
