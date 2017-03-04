@@ -9,7 +9,6 @@ class Game {
       url: "dict.txt"
     }).then( txt => {
       this.createDictionary(txt);
-      this.dict = { "the": true, "as": true };
       this.$scoreVal = $("#score span");
       this.$wordList = $("#submitted-words ul");
       this.reset();
