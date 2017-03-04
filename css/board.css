@@ -1,6 +1,39 @@
+#main-gameplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 400px;
+  width: 1000px;
+  margin: 0 auto;
+  border: 1px solid blue;
+}
+
+#rules,
+#submitted-words {
+  display: block;
+  width: 300px;
+  height: 350px;
+  border: 1px solid black;
+}
+
+#rules {
+
+}
+
+#board {
+
+}
+
+#submitted-words {
+
+}
+
+/* RULES */
+
+/* BOARD */
+
 #board > ul {
   border: 1px solid black;
-  margin: 0 auto;
   width: 328px;
   height: 328px;
 }
@@ -25,6 +58,23 @@
   background: red;
 }
 
+#board li.valid {
+  font-weight: bold;
+  font-size: 20px;
+  background: #34ff2b;
+  /*color: green;*/
+}
+
 #board li:hover {
   cursor: pointer;
+}
+
+/* SUBMITTED WORDS */
+
+#submitted-words ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+  height: 100%;
 }
