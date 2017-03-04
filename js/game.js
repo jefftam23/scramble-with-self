@@ -10,6 +10,7 @@ class Game {
     }).then( txt => {
       this.createDictionary(txt);
       this.$scoreVal = $("#score span");
+      this.$wordList = $("#submitted-words ul");
       this.reset();
 
       const currSelection = new CurrentSelection($("#current-selection"));
@@ -33,6 +34,7 @@ class Game {
 
   processWord(word) {
     this.submittedWords.push(word);
+    this.$wordList.append($(`<li>${ word }</li>`));
     const score = this.letterDistribution.wordScore(word);
     this.addToScore(score);
   }
@@ -49,9 +51,10 @@ class Game {
   }
 
   reset(){
-    this.submittedWords = [];
     this.score = 0;
     this.$scoreVal.html(this.score);
+    this.submittedWords = [];
+    this.$wordList.children().remove();
   }
  }
 
