@@ -4,11 +4,11 @@ const LetterDistribution = require("./letterDistribution.js");
 
 class Game {
   constructor() {
-    // $.ajax({
-    //   method: "GET",
-    //   url: "dict.txt"
-    // }).then( txt => {
-    //   this.createDictionary(txt);
+    $.ajax({
+      method: "GET",
+      url: "dict.txt"
+    }).then( txt => {
+      this.createDictionary(txt);
       this.dict = { "the": true, "as": true };
       this.$scoreVal = $("#score span");
       this.$wordList = $("#submitted-words ul");
@@ -25,7 +25,7 @@ class Game {
         this.alreadySubmitted.bind(this)
       );
 
-    // }).catch(() => console.log("dictionary not loaded"));
+    }).catch(() => console.log("dictionary not loaded"));
   }
 
   addToScore(score) {
