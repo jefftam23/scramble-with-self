@@ -53,16 +53,12 @@ class Board {
         setTimeout(() => {
           $selectedTiles.removeClass("invalid");
         },300);
-
-        console.log("NOT VALID");
       } else if (this.alreadySubmittedCallback(word)) {
 
         $selectedTiles.addClass("already-submitted");
         setTimeout(() => {
           $selectedTiles.removeClass("already-submitted");
         },300);
-
-        console.log("Already submitted!");
       } else { // valid and not previously submitted
         this.submitWordCallback(word);
 
@@ -70,8 +66,6 @@ class Board {
         setTimeout(() => {
           $selectedTiles.removeClass("valid");
         },300);
-
-        console.log("VALID");
       }
 
       this.resetSelections();
@@ -86,8 +80,6 @@ class Board {
     e.preventDefault();
     this.userSelecting = true;
     this.updateSelections($(e.currentTarget));
-
-    console.log('down');
   }
 
   handleTileMouseenter(e) {
@@ -96,8 +88,6 @@ class Board {
     const $tile = $(e.currentTarget);
     if (this.isValidSelection($tile)) {
       this.updateSelections($tile);
-
-      console.log('enter');
     }
   }
 

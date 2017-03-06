@@ -2,7 +2,7 @@ class Timer {
   constructor($el, gameOverCallback) {
     this.$el = $el;
     this.gameOverCallback = gameOverCallback;
-    this._setTime(5);
+    this._setTime(60);
   }
 
   start() {
@@ -20,16 +20,20 @@ class Timer {
   }
 
   reset() {
-    this._setTime(5);
+    this._setTime(60);
+    $("#timer").removeClass("red");
   }
 
   _countDown() {
     this._setTime(this.seconds - 1);
 
+    if (this.seconds <= 10) {
+      $("#timer").addClass("red");
+    }
+
     if (this.seconds === 0) {
       clearInterval(this.interval);
       this.gameOverCallback();
-      console.log("timer's up!");
     }
   }
 

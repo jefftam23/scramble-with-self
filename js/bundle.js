@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "js/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -253,7 +253,7 @@ $( () => {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const isEqual = __webpack_require__(5);
+const isEqual = __webpack_require__(6);
 const LetterDistribution = __webpack_require__(0);
 
 class Board {
@@ -275,21 +275,24 @@ class Board {
     this.userSelecting = false;
     this.resetSelections();
 
-    $("body")
-      .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
-
     this.handleTileMousedown = this.handleTileMousedown.bind(this);
     this.handleTileMouseenter = this.handleTileMouseenter.bind(this);
 
     this.setup();
   }
 
-  addTileEventListeners() {
-    const $tiles = $("#board li");
-
-    $tiles
+  activateBoard() {
+    $("#board li")
       .on("mousedown", this.handleTileMousedown)
       .on("mouseenter", this.handleTileMouseenter);
+
+    $("body")
+      .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
+  }
+
+  deactivateBoard() {
+    $("#board li").off();
+    $("body").off();
   }
 
   handleWordSubmission(e) {
@@ -297,7 +300,6 @@ class Board {
 
     if (this.userSelecting) {
       this.userSelecting = false;
-      // 'submit' this.letterSelections
       const word = this.letterSelections;
       const $selectedTiles = $("#board li.selected");
 
@@ -306,16 +308,12 @@ class Board {
         setTimeout(() => {
           $selectedTiles.removeClass("invalid");
         },300);
-
-        console.log("NOT VALID");
       } else if (this.alreadySubmittedCallback(word)) {
 
         $selectedTiles.addClass("already-submitted");
         setTimeout(() => {
           $selectedTiles.removeClass("already-submitted");
         },300);
-
-        console.log("Already submitted!");
       } else { // valid and not previously submitted
         this.submitWordCallback(word);
 
@@ -323,8 +321,6 @@ class Board {
         setTimeout(() => {
           $selectedTiles.removeClass("valid");
         },300);
-
-        console.log("VALID");
       }
 
       this.resetSelections();
@@ -406,8 +402,10 @@ class Board {
   }
 
   randomizeBoard() {
-    $("#board span").each((idx, span) => {
-      $(span).html(this.letterDist.randomLetter());
+    $("#board li").each((idx, li) => {
+      const letter = this.letterDist.randomLetter();
+      $(li).find(".letter").html(letter);
+      $(li).find(".weight").html(this.letterDist.value(letter));
     });
   }
 
@@ -415,7 +413,7 @@ class Board {
     this.posSelections = [];
     this.letterSelections = "";
     $("#board li").removeClass("selected");
-    this.currSelection.receiveWord(this.letterSelections);
+    this.currSelection.clear();
   }
 
   setup() {
@@ -425,15 +423,14 @@ class Board {
       for (let colIdx = 0; colIdx < 4; colIdx++) {
         let $li = $("<li>");
         $li.data("pos", [rowIdx, colIdx]);
-        let $span = $("<span class='noselect'></span>");
-        $li.append($span);
+        $li.append($("<span class='noselect letter'></span>"));
+        $li.append($("<span class='noselect weight'></span>"));
         $ul.append($li);
       }
     }
 
     this.$el.append($ul);
     this.randomizeBoard();
-    this.addTileEventListeners();
   }
 }
 
@@ -450,8 +447,20 @@ class CurrentSelection {
     this.$el.append($("<span>"));
   }
 
+  clear() {
+    this._setText("");
+  }
+
   receiveWord(word) {
-    this.$el.children()[0].innerHTML = word;
+    this._setText(word);
+  }
+
+  text() {
+    return this.$el.children()[0].innerHTML;
+  }
+
+  _setText(text) {
+    this.$el.children()[0].innerHTML = text;
   }
 }
 
@@ -465,6 +474,7 @@ module.exports = CurrentSelection;
 const Board = __webpack_require__(2);
 const CurrentSelection = __webpack_require__(3);
 const LetterDistribution = __webpack_require__(0);
+const Timer = __webpack_require__(5);
 
 class Game {
   constructor() {
@@ -473,27 +483,74 @@ class Game {
       url: "dict.txt"
     }).then( txt => {
       this.createDictionary(txt);
+      this.timer = new Timer($("#timer span"), this.gameOver.bind(this));
+
       this.$scoreVal = $("#score span");
       this.$wordList = $("#submitted-words ul");
       this.reset();
 
-      const currSelection = new CurrentSelection($("#current-selection"));
+      this.currSelection = new CurrentSelection($("#current-selection"));
       this.letterDistribution = new LetterDistribution();
 
-      new Board(
+      this.createPlayButton();
+
+      this.board = new Board(
         $("#board"),
-        currSelection,
+        this.currSelection,
         this.dict,
         this.processWord.bind(this),
         this.alreadySubmitted.bind(this)
       );
 
-    }).catch(() => console.log("dictionary not loaded"));
+    });
   }
 
   addToScore(score) {
     this.score += score;
     this.$scoreVal.html(this.score);
+  }
+
+  createPlayButton() {
+    this.$playButton = $("<button>");
+    this.$playButton.html("Start Game");
+    $("#start-reset").append(this.$playButton);
+    this.$playButton.click(this.handlePlayButtonClick.bind(this));
+  }
+
+  handlePlayButtonClick(e) {
+    e.preventDefault();
+
+    if (this.$playButton.html() === "Start Game") {
+      this.$playButton.html("Restart Game");
+      this.start();
+    } else {
+      this.restart();
+    }
+  }
+
+  gameOver() {
+    this.timer.stop();
+    this.board.deactivateBoard();
+    $("#board li").removeClass();
+    this.currSelection.clear();
+    this.$playButton.html("Start Game");
+  }
+
+  start() {
+    this.board.activateBoard();
+    this.board.randomizeBoard();
+    this._resetScore();
+    this._resetSubmittedWords();
+    this.$playButton.html("Restart Game");
+    this.timer.start();
+  }
+
+  restart() {
+    this.timer.stop();
+    this.board.randomizeBoard();
+    this._resetScore();
+    this._resetSubmittedWords();
+    this.timer.start();
   }
 
   processWord(word) {
@@ -515,8 +572,17 @@ class Game {
   }
 
   reset(){
+    this.timer.reset();
+    this._resetScore();
+    this._resetSubmittedWords();
+  }
+
+  _resetScore() {
     this.score = 0;
-    this.$scoreVal.html(this.score);
+    this.$scoreVal.html(0);
+  }
+
+  _resetSubmittedWords() {
     this.submittedWords = [];
     this.$wordList.children().remove();
   }
@@ -527,6 +593,59 @@ module.exports = Game;
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+class Timer {
+  constructor($el, gameOverCallback) {
+    this.$el = $el;
+    this.gameOverCallback = gameOverCallback;
+    this._setTime(60);
+  }
+
+  start() {
+    this.reset();
+
+    if (this.interval) {
+      this.stop();
+    }
+
+    this.interval = setInterval(this._countDown.bind(this), 1000);
+  }
+
+  stop() {
+    clearInterval(this.interval);
+  }
+
+  reset() {
+    this._setTime(60);
+    $("#timer").removeClass("red");
+  }
+
+  _countDown() {
+    this._setTime(this.seconds - 1);
+
+    if (this.seconds <= 10) {
+      $("#timer").addClass("red");
+    }
+
+    if (this.seconds === 0) {
+      clearInterval(this.interval);
+      this.gameOverCallback();
+    }
+  }
+
+  _setTime(seconds) {
+    this.seconds = seconds;
+    this.$el.html(seconds);
+  }
+
+}
+
+module.exports = Timer;
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -2378,10 +2497,10 @@ function stubFalse() {
 
 module.exports = isEqual;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(7)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(8)(module)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 var g;
@@ -2408,7 +2527,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -2436,7 +2555,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(1);

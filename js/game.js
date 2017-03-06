@@ -14,7 +14,6 @@ class Game {
 
       this.$scoreVal = $("#score span");
       this.$wordList = $("#submitted-words ul");
-      window.wordList = this.$wordList;
       this.reset();
 
       this.currSelection = new CurrentSelection($("#current-selection"));
@@ -30,7 +29,7 @@ class Game {
         this.alreadySubmitted.bind(this)
       );
 
-    }).catch(() => console.log("dictionary not loaded"));
+    });
   }
 
   addToScore(score) {
