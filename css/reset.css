@@ -9,6 +9,7 @@ html, body, ul, li, h2 {
 body {
   font-family: sans-serif;
   background-image: url('../scramble_wallpaper.jpg');
+  color: red;
 }
 
 ul {
