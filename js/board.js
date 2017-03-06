@@ -45,7 +45,6 @@ class Board {
 
     if (this.userSelecting) {
       this.userSelecting = false;
-      // 'submit' this.letterSelections
       const word = this.letterSelections;
       const $selectedTiles = $("#board li.selected");
 
