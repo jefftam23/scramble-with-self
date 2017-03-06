@@ -16,14 +16,14 @@ class Game {
       this.$wordList = $("#submitted-words ul");
       this.reset();
 
-      const currSelection = new CurrentSelection($("#current-selection"));
+      this.currSelection = new CurrentSelection($("#current-selection"));
       this.letterDistribution = new LetterDistribution();
 
       this.createPlayButton();
 
       this.board = new Board(
         $("#board"),
-        currSelection,
+        this.currSelection,
         this.dict,
         this.processWord.bind(this),
         this.alreadySubmitted.bind(this)
@@ -48,27 +48,36 @@ class Game {
     e.preventDefault();
 
     if (this.$playButton.html() === "Start Game") {
-      console.log("Start the game");
       this.$playButton.html("Restart Game");
-
       this.start();
-      this.board.randomizeBoard();
     } else {
-      console.log("Restart the game");
-
-      this.reset();
-      this.board.randomizeBoard();
+      this.restart();
     }
   }
 
   gameOver() {
+    this.timer.stop();
+    this.board.deactivateBoard();
+    $("#board li").removeClass();
+    this.currSelection.clear();
     this.$playButton.html("Start Game");
   }
 
   start() {
-    this.reset();
+    this.board.activateBoard();
+    this.board.randomizeBoard();
+    this._resetScore();
+    this._resetSubmittedWords();
     this.$playButton.html("Restart Game");
-    this.timer.startTimer();
+    this.timer.start();
+  }
+
+  restart() {
+    this.timer.stop();
+    this.board.randomizeBoard();
+    this._resetScore();
+    this._resetSubmittedWords();
+    this.timer.start();
   }
 
   processWord(word) {
@@ -90,14 +99,17 @@ class Game {
   }
 
   reset(){
-    // reset timer
-    this.timer.resetTimer();
+    this.timer.reset();
+    this._resetScore();
+    this._resetSubmittedWords();
+  }
 
-    // reset score
+  _resetScore() {
     this.score = 0;
-    this.$scoreVal.html(this.score);
+    this.$scoreVal.html(0);
+  }
 
-    // reset submitted words list
+  _resetSubmittedWords() {
     this.submittedWords = [];
     this.$wordList.children().remove();
   }

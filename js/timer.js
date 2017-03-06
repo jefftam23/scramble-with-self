@@ -2,24 +2,28 @@ class Timer {
   constructor($el, gameOverCallback) {
     this.$el = $el;
     this.gameOverCallback = gameOverCallback;
-    this._setTime(5);
+    this._setTime(15);
   }
 
-  startTimer() {
-    this.resetTimer();
+  start() {
+    this.reset();
 
     if (this.interval) {
-      clearInterval(this.interval);
+      this.stop();
     }
 
-    this.interval = setInterval(this._decrementToZero.bind(this), 1000);
+    this.interval = setInterval(this._countDown.bind(this), 1000);
   }
 
-  resetTimer() {
-    this._setTime(5);
+  stop() {
+    clearInterval(this.interval);
   }
 
-  _decrementToZero() {
+  reset() {
+    this._setTime(15);
+  }
+
+  _countDown() {
     this._setTime(this.seconds - 1);
 
     if (this.seconds === 0) {

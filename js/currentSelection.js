@@ -4,8 +4,16 @@ class CurrentSelection {
     this.$el.append($("<span>"));
   }
 
+  clear() {
+    this._setText("");
+  }
+
   receiveWord(word) {
-    this.$el.children()[0].innerHTML = word;
+    this._setText(word);
+  }
+
+  _setText(text) {
+    this.$el.children()[0].innerHTML = text;
   }
 }
 

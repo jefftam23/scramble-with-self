@@ -20,21 +20,24 @@ class Board {
     this.userSelecting = false;
     this.resetSelections();
 
-    $("body")
-      .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
-
     this.handleTileMousedown = this.handleTileMousedown.bind(this);
     this.handleTileMouseenter = this.handleTileMouseenter.bind(this);
 
     this.setup();
   }
 
-  addTileEventListeners() {
-    const $tiles = $("#board li");
-
-    $tiles
+  activateBoard() {
+    $("#board li")
       .on("mousedown", this.handleTileMousedown)
       .on("mouseenter", this.handleTileMouseenter);
+
+    $("body")
+      .on("mouseup mouseleave", this.handleWordSubmission.bind(this));
+  }
+
+  deactivateBoard() {
+    $("#board li").off();
+    $("body").off();
   }
 
   handleWordSubmission(e) {
@@ -84,6 +87,8 @@ class Board {
     e.preventDefault();
     this.userSelecting = true;
     this.updateSelections($(e.currentTarget));
+
+    console.log('down');
   }
 
   handleTileMouseenter(e) {
@@ -92,6 +97,8 @@ class Board {
     const $tile = $(e.currentTarget);
     if (this.isValidSelection($tile)) {
       this.updateSelections($tile);
+
+      console.log('enter');
     }
   }
 
@@ -160,7 +167,7 @@ class Board {
     this.posSelections = [];
     this.letterSelections = "";
     $("#board li").removeClass("selected");
-    this.currSelection.receiveWord(this.letterSelections);
+    this.currSelection.clear();
   }
 
   setup() {
@@ -178,7 +185,6 @@ class Board {
 
     this.$el.append($ul);
     this.randomizeBoard();
-    this.addTileEventListeners();
   }
 }
 
