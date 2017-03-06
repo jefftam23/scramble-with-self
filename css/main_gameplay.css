@@ -5,18 +5,30 @@
   height: 400px;
   width: 1000px;
   margin: 0 auto;
-  border: 1px solid blue;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 10px;
 }
 
-#rules,
+#instructions,
 #submitted-words {
   display: block;
   width: 300px;
   height: 350px;
-  border: 1px solid black;
+  margin: 15px;
+  border: 2px solid black;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
 }
 
-#rules {
+#instructions h2,
+#submitted-words h2 {
+  font-size: 24px;
+  text-decoration: underline;
+  margin: 10px;
+}
+
+#instructions {
 
 }
 
@@ -26,7 +38,7 @@
 }
 
 #submitted-words {
-
+  color: white;
 }
 
 /* RULES */
@@ -34,7 +46,6 @@
 /* BOARD */
 
 #board > ul {
-  border: 1px solid black;
   width: 320px;
   height: 320px;
 }
@@ -113,4 +124,6 @@
   flex-wrap: wrap;
   list-style: none;
   height: 100%;
+  margin: 10px;
+  overflow-y: hidden;
 }

@@ -14,6 +14,7 @@ class Game {
 
       this.$scoreVal = $("#score span");
       this.$wordList = $("#submitted-words ul");
+      window.wordList = this.$wordList;
       this.reset();
 
       this.currSelection = new CurrentSelection($("#current-selection"));

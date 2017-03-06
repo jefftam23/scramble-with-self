@@ -1,4 +1,4 @@
-html, body, ul, li {
+html, body, ul, li, h2 {
   margin: 0;
   padding: 0;
   border: 0;
@@ -8,6 +8,7 @@ html, body, ul, li {
 
 body {
   font-family: sans-serif;
+  background-image: url('/scramble_wallpaper.jpg');
 }
 
 ul {

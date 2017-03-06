@@ -2,7 +2,7 @@ class Timer {
   constructor($el, gameOverCallback) {
     this.$el = $el;
     this.gameOverCallback = gameOverCallback;
-    this._setTime(15);
+    this._setTime(5);
   }
 
   start() {
@@ -20,7 +20,7 @@ class Timer {
   }
 
   reset() {
-    this._setTime(15);
+    this._setTime(5);
   }
 
   _countDown() {
