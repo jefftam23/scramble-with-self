@@ -158,8 +158,10 @@ class Board {
   }
 
   randomizeBoard() {
-    $("#board span").each((idx, span) => {
-      $(span).html(this.letterDist.randomLetter());
+    $("#board li").each((idx, li) => {
+      const letter = this.letterDist.randomLetter();
+      $(li).find(".letter").html(letter);
+      $(li).find(".weight").html(this.letterDist.value(letter));
     });
   }
 
@@ -177,8 +179,8 @@ class Board {
       for (let colIdx = 0; colIdx < 4; colIdx++) {
         let $li = $("<li>");
         $li.data("pos", [rowIdx, colIdx]);
-        let $span = $("<span class='noselect'></span>");
-        $li.append($span);
+        $li.append($("<span class='noselect letter'></span>"));
+        $li.append($("<span class='noselect weight'></span>"));
         $ul.append($li);
       }
     }

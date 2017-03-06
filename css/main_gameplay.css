@@ -21,8 +21,8 @@
 }
 
 #board {
-  font-size: 35px;
-  font-weight: bold;
+  /*font-size: 35px;
+  font-weight: bold;*/
 }
 
 #submitted-words {
@@ -65,6 +65,21 @@
 	height: 50%;
 	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
   border-radius: 10px 10px 0 0;
+}
+
+#board li .letter {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+#board li .weight {
+  position: absolute;
+  line-height: 12px;
+  font-size: 12px;
+  top: 6px;
+  right: 6px;
+  text-align: right;
+  z-index: 999;
 }
 
 /*#board li:hover,*/
