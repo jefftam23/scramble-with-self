@@ -12,6 +12,10 @@ class CurrentSelection {
     this._setText(word);
   }
 
+  text() {
+    return this.$el.children()[0].innerHTML;
+  }
+
   _setText(text) {
     this.$el.children()[0].innerHTML = text;
   }
