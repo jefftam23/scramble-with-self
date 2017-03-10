@@ -1,5 +1,6 @@
 #game-bar {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   width: 600px;
@@ -8,10 +9,36 @@
   padding: 10px;
   color: white;
   background-image: linear-gradient(#277fbe, #8ec0e4);
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
 }
 
 #game-bar .red {
   color: red;
+}
+
+#game-bar button {
+  color: white;
+  font: inherit;
+  background: linear-gradient(#5697f8, #003dac);
+  width: 90px;
+  border-radius: 5px;
+  box-shadow: 0px 3px 0px #001ba0;
+  position: relative;
+}
+
+#game-bar button:active {
+  top: 2px;
+  box-shadow: 0 1px 0 #001ba0;
+}
+
+#game-bar button:focus {
+  outline: none;
+}
+
+#game-bar button:hover {
+  cursor: pointer;
+}
+
+#timer {
+  width: 65px;
 }

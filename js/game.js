@@ -39,7 +39,7 @@ class Game {
 
   createPlayButton() {
     this.$playButton = $("<button>");
-    this.$playButton.html("Start Game");
+    this.$playButton.html("Start");
     $("#start-reset").append(this.$playButton);
     this.$playButton.click(this.handlePlayButtonClick.bind(this));
   }
@@ -47,8 +47,8 @@ class Game {
   handlePlayButtonClick(e) {
     e.preventDefault();
 
-    if (this.$playButton.html() === "Start Game") {
-      this.$playButton.html("Restart Game");
+    if (this.$playButton.html() === "Start") {
+      this.$playButton.html("Restart");
       this.start();
     } else {
       this.restart();
@@ -60,7 +60,7 @@ class Game {
     this.board.deactivateBoard();
     $("#board li").removeClass();
     this.currSelection.clear();
-    this.$playButton.html("Start Game");
+    this.$playButton.html("Start");
   }
 
   start() {
@@ -68,7 +68,7 @@ class Game {
     this.board.randomizeBoard();
     this._resetScore();
     this._resetSubmittedWords();
-    this.$playButton.html("Restart Game");
+    this.$playButton.html("Restart");
     this.timer.start();
   }
 

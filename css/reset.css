@@ -1,14 +1,26 @@
-html, body, ul, li, h2 {
+html, body, footer, ul, li, h2, a {
   margin: 0;
   padding: 0;
   border: 0;
   font: inherit;
   text-align: inherit;
+  text-decoration: none;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'Convergence', sans-serif;
   background-image: url('../scramble_wallpaper.jpg');
+}
+
+button {
+  /*
+  Get rid of native styling. Read more here:
+  http://css-tricks.com/almanac/properties/a/appearance/
+  */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
 }
 
 ul {

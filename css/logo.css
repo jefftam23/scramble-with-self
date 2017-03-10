@@ -1,0 +1,11 @@
+#logo {
+  width: 500px;
+  padding: 10px;
+  background-color: rgba(0,0,0,0.5);
+  margin: 10px auto;
+  border-radius: 10px;
+}
+
+#logo img {
+  width: 100%;
+}
