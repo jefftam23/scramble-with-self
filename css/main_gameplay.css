@@ -41,6 +41,10 @@
 
 /* RULES */
 
+#instructions p {
+  margin: 10px;
+}
+
 /* BOARD */
 
 #board > ul {
