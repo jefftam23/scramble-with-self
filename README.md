@@ -15,3 +15,9 @@ At the beginning of each round, a 4x4 grid of letters is generated based on the 
 [scramble-letter-dist]: https://en.wikipedia.org/wiki/Scrabble_letter_distributions
 [ospd]: https://en.wikipedia.org/wiki/Official_Scrabble_Players_Dictionary
 [ospd-word-list]: http://www.puzzlers.org/dokuwiki/doku.php?id=solving%3awordlists%3aabout%3astart
+
+## Implementation
+
+## Future Work
+- [ ] Solve the board: List all possible words and highest possible score at end of round
+- [ ] Add styling to show path between selected tiles
