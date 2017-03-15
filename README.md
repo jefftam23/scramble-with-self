@@ -6,7 +6,7 @@ Play the game [here][scramble-with-self]!
 
 Scramble With Self is a word jumble game built with JavaScript and jQuery inspired by the game Scramble With Friends.
 
-![game](./screenshots/game.png)
+![game](./screenshots/board.png)
 
 ## How To Play
 
