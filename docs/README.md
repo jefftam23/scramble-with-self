@@ -17,7 +17,7 @@ It is inspired by the game Scramble with Friends (also called Word Streak).
 
 ### Wireframes
 
-![wireframes](https://github.com/jefftam23/scramble-with-self/blob/master/wireframe.jpg)
+![wireframes](./wireframe.jpg)
 
 ### Architecture and Technologies
 
