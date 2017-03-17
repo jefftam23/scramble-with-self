@@ -18,6 +18,44 @@ At the beginning of each round, a 4x4 grid of letters is generated based on the 
 
 ## Implementation
 
+### User Interaction
+
+Uses jQuery to handle mouse events.
+
+### Dictionary Lookup
+
+When the page loads, it makes an AJAX request to fetch a text file containing a newline-separated word list.
+
+```javascript
+// lib/game.js
+
+class Game {
+  constructor() {
+    $.ajax({
+      method: "GET",
+      url: "assets/dict.txt"
+    }).then(txt => {
+      this.createDictionary(txt);
+      ...
+    })
+  }
+  ...
+}
+```
+
+The game then parses this file to generate a hash map of words, which allows for quick word lookup/validation.
+
+```javascript
+createDictionary(txt) {
+  const words = txt.split("\n");
+  words.pop(); // get rid of empty string entry
+  this.dict = {};
+  words.forEach(word => { this.dict[word] = true; });
+}
+```
+
+This allows users to get nearly instant feedback upon submission of a word.
+
 ## Future Work
 - [ ] Solve the board: List all possible words and highest possible score at end of round
 - [ ] Add styling to show path between selected tiles
