@@ -106,7 +106,8 @@
   color: orange;
 }
 
-#board li:hover {
+#board li:hover,
+#board li span:hover {
   cursor: pointer;
 }
 
