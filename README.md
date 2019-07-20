@@ -1,9 +1,5 @@
 # Scramble With Self
 
-Play the game [here][scramble-with-self]!
-
-[scramble-with-self]: http://www.tamjeffrey.com/scramble-with-self
-
 Scramble With Self is a word jumble game built with JavaScript and jQuery inspired by the game Scramble With Friends.
 
 ![game](./screenshots/board.png)
